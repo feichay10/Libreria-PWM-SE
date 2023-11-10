@@ -6,7 +6,7 @@
  * Asignatura: Sistemas Empotrados
  * Curso: 4º
  * Práctica 01: Libreria PWM
- * @file pwm.h
+ * @file pwm.c
  * @author Cheuk Kelly Ng Pante (alu0101364544@ull.edu.es)
  * @author Carlos Pérez Fino (alu0101340333@ull.edu.es)
  * @brief
@@ -16,3 +16,5 @@
  * @copyright Copyright (c) 2022
  *
  */
+
+#include "pwm.h"
