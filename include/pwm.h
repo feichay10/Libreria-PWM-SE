@@ -39,7 +39,7 @@ typedef enum {false, true} bool;
  * @brief Configurar el reloj base para un determinado canal
  * 
  * @param clock_A A partir de la señal de reloj del sistema ECLK se general las 
- * señales A y B aplic´andole un divisor, independiente para cada señal.
+ * señales A y B aplicándole un divisor, independiente para cada señal.
  * @param factor_N Indica los valores válidos para N
  */
 void pwm_set_clock(bool clock_A, int8_t factor_N);
