@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['groups_5f0_2ejs_1266',['groups_0.js',['../groups__0_8js.html',1,'']]],
-  ['groups_5f1_2ejs_1267',['groups_1.js',['../groups__1_8js.html',1,'']]],
-  ['groups_5f2_2ejs_1268',['groups_2.js',['../groups__2_8js.html',1,'']]],
-  ['groups_5f3_2ejs_1269',['groups_3.js',['../groups__3_8js.html',1,'']]],
-  ['groups_5f4_2ejs_1270',['groups_4.js',['../groups__4_8js.html',1,'']]]
+  ['ondacuadradaoc2_2ec',['OndaCuadradaOC2.c',['../_onda_cuadrada_o_c2_8c.html',1,'']]],
+  ['ondageneraloc2_2ec',['OndaGeneralOC2.c',['../_onda_general_o_c2_8c.html',1,'']]]
 ];

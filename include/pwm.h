@@ -14,7 +14,7 @@
  * @date
  *
  * @copyright Copyright (c) 2022
- *º
+ *
  */
 
 #ifndef _PWM_H_
@@ -69,12 +69,16 @@ void pwm_set_alignment(bool left_align);
  * @param steps Establece el número de etapas del periodo
  * @param channel Determina el canal a configurar
  */
-void pwm_set_channel_period(int8_t steps, int8_t channel);
+void pwm_set_channel_period(int8_t channel, int8_t steps);
 
 /**
  * @brief Habilitar un determinado canal
  * 
+ * @warning Se tiene que invocar antes el métodos pwm_set_clock()
+ * para poder habilitar un determinado canal.
+ * 
  * @param channel Determina el canal a habilitar
+ *
  */
 void pwm_channel_enable(int8_t channel);
 
@@ -92,7 +96,7 @@ void pwm_channel_disable(int8_t channel);
  * @param steps Define el número de etapas
  * @param channel Determina el canal a configurar
  */
-void pwm_modify_channel_duty_steps(int8_t steps, int8_t channel);
+void pwm_modify_channel_duty_steps(int8_t channel,int8_t steps);
 
 /**
  * @brief Modificar el ciclo de trabajo (en porcentaje) para un determinado 
@@ -101,12 +105,14 @@ void pwm_modify_channel_duty_steps(int8_t steps, int8_t channel);
  * @param percentage Define el porcentaje de trabajo
  * @param channel Determina el canal a configurar
  */
-void pwm_modify_duty_percentage(int8_t percentage, int8_t channel);
+void pwm_modify_duty_percentage(int8_t channel, int8_t percentage);
 
-// /*Funcion para sacar toda la configuración del pwm*/
-// void pwm_print_status();
+/**
+ * @brief Muestra todos los registros en bytes
+ * 
+ */
+void pwm_print_status();
 
 /*@}*/
-
 
 #endif // _PWM_H_

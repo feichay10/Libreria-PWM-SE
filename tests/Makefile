@@ -44,8 +44,8 @@ s19s:=$(fuentes:.c=.s19)
 all : $(fuentes:.c=.elf) $(s19s)
 
 
-#simple.elf:	$(OBJS)
-#	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+#simple.elf:    $(OBJS)
+#       $(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 
 include $(BASEDIR)/config/make.defs

@@ -1,11 +1,7 @@
-# Librería-PWM-SE
-Librería de una PWM en C para la asignatura de Sistemas Empotrados 2023/2024
+# SimpleGEL
 
-## 📌 Autores 
-* Cheuk Kelly Ng Pante (alu0101364544@ull.edu.es)
-* Carlos Pérez Fino (alu0101340333@ull.edu.es)
+Librería GNU/C para 68hc12 adaptada a las placas ADAPT912DT60.
 
-## Librería GNU/C para 68hc12 adaptada a las placas ADAPT912DT60
 Está basada en los `m68hc11-examples-1.2.tar.gz` que se pueden encontrar en la
 [página de GNU](http://www.gnu.org/software/m68hc11/m68hc11_pkg_examples.html)
 que son previos a la versión 1.2 del proyecto [GEL](http://gel.sourceforge.net/)

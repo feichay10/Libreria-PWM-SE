@@ -1,24 +1,4 @@
 var searchData=
 [
-  ['files_5f0_2ejs_1245',['files_0.js',['../files__0_8js.html',1,'']]],
-  ['files_5f1_2ejs_1246',['files_1.js',['../files__1_8js.html',1,'']]],
-  ['files_5f2_2ejs_1247',['files_2.js',['../files__2_8js.html',1,'']]],
-  ['files_5f3_2ejs_1248',['files_3.js',['../files__3_8js.html',1,'']]],
-  ['files_5f4_2ejs_1249',['files_4.js',['../files__4_8js.html',1,'']]],
-  ['files_5f5_2ejs_1250',['files_5.js',['../files__5_8js.html',1,'']]],
-  ['files_5f6_2ejs_1251',['files_6.js',['../files__6_8js.html',1,'']]],
-  ['files_5f7_2ejs_1252',['files_7.js',['../files__7_8js.html',1,'']]],
-  ['files_5f8_2ejs_1253',['files_8.js',['../files__8_8js.html',1,'']]],
-  ['files_5f9_2ejs_1254',['files_9.js',['../files__9_8js.html',1,'']]],
-  ['files_5fa_2ejs_1255',['files_a.js',['../files__a_8js.html',1,'']]],
-  ['files_5fb_2ejs_1256',['files_b.js',['../files__b_8js.html',1,'']]],
-  ['functions_5f0_2ejs_1257',['functions_0.js',['../functions__0_8js.html',1,'']]],
-  ['functions_5f1_2ejs_1258',['functions_1.js',['../functions__1_8js.html',1,'']]],
-  ['functions_5f2_2ejs_1259',['functions_2.js',['../functions__2_8js.html',1,'']]],
-  ['functions_5f3_2ejs_1260',['functions_3.js',['../functions__3_8js.html',1,'']]],
-  ['functions_5f4_2ejs_1261',['functions_4.js',['../functions__4_8js.html',1,'']]],
-  ['functions_5f5_2ejs_1262',['functions_5.js',['../functions__5_8js.html',1,'']]],
-  ['functions_5f6_2ejs_1263',['functions_6.js',['../functions__6_8js.html',1,'']]],
-  ['functions_5f7_2ejs_1264',['functions_7.js',['../functions__7_8js.html',1,'']]],
-  ['functions_5f8_2ejs_1265',['functions_8.js',['../functions__8_8js.html',1,'']]]
+  ['manejaspi_2ec',['ManejaSPI.c',['../_maneja_s_p_i_8c.html',1,'']]]
 ];
