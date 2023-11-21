@@ -38,10 +38,11 @@ typedef enum {false, true} bool;
 /**
  * @brief Configurar el reloj base para un determinado canal
  * 
- * @param clock A partir de la señal de reloj del sistema ECLK se general las señales A y B aplic´andole un divisor, independiente para cada señal.
- * @param factor_N Define el valor de N
+ * @param clock_A A partir de la señal de reloj del sistema ECLK se general las 
+ * señales A y B aplic´andole un divisor, independiente para cada señal.
+ * @param factor_N Indica los valores válidos para N
  */
-void pwm_set_clock(bool clock, int8_t factor_N);
+void pwm_set_clock(bool clock_A, int8_t factor_N);
 
 /**
  * @brief Configurar la polaridad para un determinado canal
@@ -53,7 +54,8 @@ void pwm_set_polarity(int8_t port, bool up);
 
 /**
  * @brief Configurar el alineamiento para un determinado canal. 
- * Este método permite estableces el tipo de alineamiento para poder modificar los pulsos de reloj
+ * Este método permite estableces el tipo de alineamiento para poder modificar 
+ * los pulsos de reloj
  * 
  * @param align Define el alineamiento de la señal de salida
  * @param select_channel Define el canal a configurar
@@ -61,12 +63,13 @@ void pwm_set_polarity(int8_t port, bool up);
 void pwm_set_alignment(bool left_align);
 
 /**
- * @brief Configurar el número de etapas del periodo para un determinado canal, permite establecer el número de etapas por periodo
+ * @brief Configurar el número de etapas del periodo para un determinado canal, 
+ * permite establecer el número de etapas por periodo
  * 
  * @param steps Establece el número de etapas del periodo
  * @param channel Determina el canal a configurar
  */
-void pwm_set_period(int8_t steps, int8_t channel);
+void pwm_set_channel_period(int8_t steps, int8_t channel);
 
 /**
  * @brief Habilitar un determinado canal
@@ -89,11 +92,11 @@ void pwm_channel_disable(int8_t channel);
  * @param steps Define el número de etapas
  * @param channel Determina el canal a configurar
  */
-void pwm_modify_duty_steps(int8_t steps, int8_t channel);
+void pwm_modify_channel_duty_steps(int8_t steps, int8_t channel);
 
 /**
- * @brief Modificar el ciclo de trabajo (en porcentaje) para un determinado canal
- * Modifica el número de ciclos según el porcentaje de trabajo
+ * @brief Modificar el ciclo de trabajo (en porcentaje) para un determinado 
+ * canal
  * 
  * @param percentage Define el porcentaje de trabajo
  * @param channel Determina el canal a configurar

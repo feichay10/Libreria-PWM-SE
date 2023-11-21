@@ -22,8 +22,8 @@
 #define M6812_DESPL7_3 (7 << 3)
 #define M6812_DESPL7_0 ~(7 << 0)
 
-void pwm_set_clock(bool clock, int8_t factor_N) {
-  if (clock == true) {  // reloj A 
+void pwm_set_clock(bool clock_A, int8_t factor_N) {
+  if (clock_A == true) {  // reloj A 
     _io_ports[M6812_PWCLK] &= M6812_DESPL7_3;
     _io_ports[M6812_PWCLK] |= (factor_N << 3);
   } else {              // reloj B
@@ -65,15 +65,16 @@ void pwm_set_polarity(int8_t port, bool up) {
   }
 }
 
+// CORREGIDO
 void pwm_set_alignment(bool left_align) {
   if (left_align == true) {  // Alineamiento a la izquierda
-    _io_ports[M6812_PWCTL] |= M6812B_CENTR;
-  } else {                   // Alineamiento centrado
     _io_ports[M6812_PWCTL] &= ~M6812B_CENTR;
+  } else {                   // Alineamiento centrado
+    _io_ports[M6812_PWCTL] |= M6812B_CENTR;
   }
 }
 
-void pwm_set_period(int8_t steps, int8_t channel) {
+void pwm_set_channel_period(int8_t steps, int8_t channel) {
   switch(channel) {
     case 0:
       _io_ports[M6812_PWPER0] = steps;
@@ -124,7 +125,7 @@ void pwm_channel_disable(int8_t channel) {
   } 
 }
 
-void pwm_modify_duty_steps(int8_t steps, int8_t channel) {
+void pwm_modify_channel_duty_steps(int8_t steps, int8_t channel) {
   switch(channel) {
     case 0:
       _io_ports[M6812_PWDTY0] = steps;
@@ -139,4 +140,8 @@ void pwm_modify_duty_steps(int8_t steps, int8_t channel) {
       _io_ports[M6812_PWDTY3] = steps;
       break;
   }
+}
+
+void pwm_modify_duty_percentage(int8_t percentage, int8_t channel) {
+
 }
