@@ -6,7 +6,7 @@
  * Asignatura: Sistemas Empotrados
  * Curso: 4º
  * Práctica 01: Libreria PWM
- * @file pwm.c
+ * @file test_pwm_3.c
  * @author Cheuk Kelly Ng Pante (alu0101364544@ull.edu.es)
  * @author Carlos Pérez Fino (alu0101340333@ull.edu.es)
  * @brief
@@ -17,3 +17,14 @@
  *
  */
 
+#include <pwm.h>
+#include <sys/interrupts.h>
+#include <sys/locks.h>
+#include <sys/param.h>
+#include <sys/ports.h>
+#include <sys/sio.h>
+#include <types.h>
+
+int main() {
+
+}
