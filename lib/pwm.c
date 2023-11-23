@@ -139,8 +139,8 @@ void pwm_modify_channel_duty_steps(int8_t channel, int8_t steps) {
 }
 
 void pwm_modify_duty_percentage(int8_t channel, int8_t percentage) {
-  uint8_t per = pwm_get_channel_period(channel);
-  pwm_modify_channel_duty_steps(channel, (per * percentage) / 100);
+  uint8_t period = pwm_get_channel_period(channel);
+  pwm_modify_channel_duty_steps(channel, (period * percentage) / 100);
 }
 
 void pwm_print_status() {
