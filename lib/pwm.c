@@ -97,8 +97,6 @@ void pwm_set_channel_period(int8_t channel, int8_t steps) {
 }
 
 uint8_t pwm_get_channel_per(int8_t channel) {
-  serial_print("\nPER: ");
-  serial_printbinword(_io_ports[M6812_PWPER0 + channel]);
   return _io_ports[M6812_PWPER0 + channel];
 }
 
@@ -141,8 +139,6 @@ void pwm_modify_channel_duty_steps(int8_t channel, int8_t steps) {
 }
 
 void pwm_modify_duty_percentage(int8_t channel, int8_t percentage) {
-  // D -> duty, seria llamar a pwm_modify_channel_duty_steps()
-  // D = (PER * percentage) / 100
   uint8_t per = pwm_get_channel_per(channel);
   pwm_modify_channel_duty_steps(channel, (per * percentage) / 100);
 }
