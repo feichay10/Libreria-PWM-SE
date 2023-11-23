@@ -28,8 +28,6 @@
 
 typedef enum { false, true } bool;
 
-#define RETURN 0
-
 /*! @defgroup pwm Funciones de manejo del módulo PWM
  */
 
@@ -72,7 +70,7 @@ void pwm_set_alignment(bool left_align);
 void pwm_set_channel_period(int8_t channel, int8_t steps);
 
 /**
- * @brief Seleccionar el PER para un determinado canal
+ * @brief Seleccionar el periodo para un determinado canal
  *
  * @param channel Determina el canal a configurar
  */
