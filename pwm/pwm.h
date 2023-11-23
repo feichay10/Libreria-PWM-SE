@@ -9,9 +9,9 @@
  * @file pwm.h
  * @author Cheuk Kelly Ng Pante (alu0101364544@ull.edu.es)
  * @author Carlos Pérez Fino (alu0101340333@ull.edu.es)
- * @brief
- * @version 0.1
- * @date
+ * @brief Definición de las funciones de la librería PWM
+ * @version 0.2
+ * @date 24-11-2023
  *
  * @copyright Copyright (c) 2022
  *

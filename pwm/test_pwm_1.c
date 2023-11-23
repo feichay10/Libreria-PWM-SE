@@ -29,43 +29,44 @@ int main() {
   serial_init();
   serial_print("\nTest PWM");
   serial_print("\n######### Registros #########");
-  serial_print("\nM6812_PWCLK: ");
-  serial_printbinbyte(_io_ports[M6812_PWCLK]);
-  serial_print("\n");
+  pwm_print_status();
+  // serial_print("\nM6812_PWCLK: ");
+  // serial_printbinbyte(_io_ports[M6812_PWCLK]);
+  // serial_print("\n");
 
-  serial_print("PWPOL: ");
-  serial_printbinbyte(_io_ports[M6812_PWPOL]);
-  serial_print("\n");
+  // serial_print("PWPOL: ");
+  // serial_printbinbyte(_io_ports[M6812_PWPOL]);
+  // serial_print("\n");
 
-  serial_print("PWPER0: ");
-  serial_printbinbyte(_io_ports[M6812_PWPER0]);
-  serial_print("\n");
+  // serial_print("PWPER0: ");
+  // serial_printbinbyte(_io_ports[M6812_PWPER0]);
+  // serial_print("\n");
 
-  serial_print("PWPER1: ");
-  serial_printbinbyte(_io_ports[M6812_PWPER1]);
-  serial_print("\n"); 
+  // serial_print("PWPER1: ");
+  // serial_printbinbyte(_io_ports[M6812_PWPER1]);
+  // serial_print("\n"); 
 
-  serial_print("PWPER2: ");
-  serial_printbinbyte(_io_ports[M6812_PWPER2]);
-  serial_print("\n");
+  // serial_print("PWPER2: ");
+  // serial_printbinbyte(_io_ports[M6812_PWPER2]);
+  // serial_print("\n");
 
-  serial_print("PWPER3: ");
-  serial_printbinbyte(_io_ports[M6812_PWPER3]);
-  serial_print("\n");
+  // serial_print("PWPER3: ");
+  // serial_printbinbyte(_io_ports[M6812_PWPER3]);
+  // serial_print("\n");
 
-  serial_print("PWDTY0: ");
-  serial_printbinbyte(_io_ports[M6812_PWDTY0]);
-  serial_print("\n");
+  // serial_print("PWDTY0: ");
+  // serial_printbinbyte(_io_ports[M6812_PWDTY0]);
+  // serial_print("\n");
 
-  serial_print("PWDTY1: ");
-  serial_printbinbyte(_io_ports[M6812_PWDTY1]);
-  serial_print("\n");
+  // serial_print("PWDTY1: ");
+  // serial_printbinbyte(_io_ports[M6812_PWDTY1]);
+  // serial_print("\n");
 
-  serial_print("PWDTY2: ");
-  serial_printbinbyte(_io_ports[M6812_PWDTY2]);
-  serial_print("\n");
+  // serial_print("PWDTY2: ");
+  // serial_printbinbyte(_io_ports[M6812_PWDTY2]);
+  // serial_print("\n");
 
-  serial_print("PWDTY3: ");
-  serial_printbinbyte(_io_ports[M6812_PWDTY3]);
-  serial_print("\n");
+  // serial_print("PWDTY3: ");
+  // serial_printbinbyte(_io_ports[M6812_PWDTY3]);
+  // serial_print("\n");
 }
