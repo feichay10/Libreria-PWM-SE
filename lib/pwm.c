@@ -24,11 +24,13 @@
 
 void pwm_set_clock(bool clock_A, int8_t factor_N) {
   if (clock_A == true) {  // reloj A -> canal 0 y 1
+    serial_print("Reloj A");
     _io_ports[M6812_PWCLK] &= M6812_DESPL7_3;
     _io_ports[M6812_PWCLK] |= (factor_N << 3);
     _io_ports[M6812_PWPOL] &= ~M6812B_PCLK0;
     _io_ports[M6812_PWPOL] &= ~M6812B_PCLK1;
   } else {  // reloj B -> canales 2 y 3
+    serial_print("Reloj B");
     _io_ports[M6812_PWCLK] &= M6812_DESPL7_0;
     _io_ports[M6812_PWCLK] |= (factor_N << 0);
     _io_ports[M6812_PWPOL] &= ~M6812B_PCLK2;
@@ -72,7 +74,7 @@ void pwm_set_polarity(int8_t port, bool up) {
 void pwm_set_alignment(bool left_align) {
   if (left_align == true) {  // Alineamiento a la izquierda
     _io_ports[M6812_PWCTL] &= ~M6812B_CENTR;
-  } else {                   // Alineamiento centrado
+  } else {  // Alineamiento centrado
     _io_ports[M6812_PWCTL] |= M6812B_CENTR;
   }
 }
@@ -92,6 +94,12 @@ void pwm_set_channel_period(int8_t channel, int8_t steps) {
       _io_ports[M6812_PWPER3] = steps;
       break;
   }
+}
+
+uint8_t pwm_get_channel_per(int8_t channel) {
+  serial_print("\nPER: ");
+  serial_printbinword(_io_ports[M6812_PWPER0 + channel]);
+  return _io_ports[M6812_PWPER0 + channel];
 }
 
 void pwm_channel_enable(int8_t channel) {
@@ -129,47 +137,14 @@ void pwm_channel_disable(int8_t channel) {
 }
 
 void pwm_modify_channel_duty_steps(int8_t channel, int8_t steps) {
-  switch (channel) {
-    case 0:
-      _io_ports[M6812_PWDTY0] = steps;
-      break;
-    case 1:
-      _io_ports[M6812_PWDTY1] = steps;
-      break;
-    case 2:
-      _io_ports[M6812_PWDTY2] = steps;
-      break;
-    case 3:
-      _io_ports[M6812_PWDTY3] = steps;
-      break;
-  }
+  _io_ports[M6812_PWDTY0 + channel] = steps;
 }
 
 void pwm_modify_duty_percentage(int8_t channel, int8_t percentage) {
-  int8_t quotient = percentage;
-  int8_t total = 100;
-  int8_t divisor = quotient % total;
-  quotient /= divisor;
-  total /= divisor;
-
-  switch (channel) {
-    case 0:
-      pwm_modify_channel_duty_steps(channel,
-                                    _io_ports[M6812_PWPER0] / total * quotient);
-      break;
-    case 1:
-      pwm_modify_channel_duty_steps(channel,
-                                    _io_ports[M6812_PWPER1] / total * quotient);
-      break;
-    case 2:
-      pwm_modify_channel_duty_steps(channel,
-                                    _io_ports[M6812_PWPER2] / total * quotient);
-      break;
-    case 3:
-      pwm_modify_channel_duty_steps(
-          channel, _io_ports[M6812_PWPER3] / total * quotient);
-      break;
-  }
+  // D -> duty, seria llamar a pwm_modify_channel_duty_steps()
+  // D = (PER * percentage) / 100
+  uint8_t per = pwm_get_channel_per(channel);
+  pwm_modify_channel_duty_steps(channel, (per * percentage) / 100);
 }
 
 void pwm_print_status() {
@@ -187,7 +162,7 @@ void pwm_print_status() {
 
   serial_print("PWPER1: ");
   serial_printbinbyte(_io_ports[M6812_PWPER1]);
-  serial_print("\n"); 
+  serial_print("\n");
 
   serial_print("PWPER2: ");
   serial_printbinbyte(_io_ports[M6812_PWPER2]);
