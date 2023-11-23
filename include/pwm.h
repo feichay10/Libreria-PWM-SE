@@ -76,7 +76,7 @@ void pwm_set_channel_period(int8_t channel, int8_t steps);
  *
  * @param channel Determina el canal a configurar
  */
-uint8_t pwm_get_channel_per(int8_t channel);
+uint8_t pwm_get_channel_period(int8_t channel);
 
 /**
  * @brief Habilitar un determinado canal
