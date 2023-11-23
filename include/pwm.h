@@ -72,6 +72,13 @@ void pwm_set_alignment(bool left_align);
 void pwm_set_channel_period(int8_t channel, int8_t steps);
 
 /**
+ * @brief Seleccionar el PER para un determinado canal
+ * 
+ * @param channel Determina el canal a configurar
+ */
+uint8_t pwm_get_channel_per(int8_t channel);
+
+/**
  * @brief Habilitar un determinado canal
  * 
  * @warning Se tiene que invocar antes el métodos pwm_set_clock()
@@ -96,7 +103,7 @@ void pwm_channel_disable(int8_t channel);
  * @param steps Define el número de etapas
  * @param channel Determina el canal a configurar
  */
-void pwm_modify_channel_duty_steps(int8_t channel,int8_t steps);
+void pwm_modify_channel_duty_steps(int8_t channel, int8_t steps);
 
 /**
  * @brief Modificar el ciclo de trabajo (en porcentaje) para un determinado 

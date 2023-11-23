@@ -37,11 +37,11 @@ int main() {
     pwm_set_clock(true, 7);
     pwm_set_polarity(0, true);
     pwm_set_alignment(true);
-    pwm_set_channel_period(0, 2);
+    pwm_set_channel_period(0, 200);
     pwm_channel_enable(0);
     pwm_channel_disable(0);
-    pwm_modify_channel_duty_steps(2, 20); 
-    pwm_modify_duty_percentage(3, 50);
+    // pwm_modify_channel_duty_steps(2, 20); 
+    pwm_modify_duty_percentage(0, 50);
     pwm_print_status();
 
     while(1) {
