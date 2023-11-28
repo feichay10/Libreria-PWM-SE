@@ -38,7 +38,8 @@ typedef enum { false, true } bool;
  *
  * @param clock_A A partir de la señal de reloj del sistema ECLK se general las
  * señales A y B aplicándole un divisor, independiente para cada señal.
- * @param factor_N Indica los valores válidos para N
+ * @param factor_N Indica los valores válidos para N, valores validos 
+ * entre 0 y 7
  */
 void pwm_set_clock(bool clock_A, int8_t factor_N);
 
@@ -55,8 +56,10 @@ void pwm_set_polarity(int8_t port, bool up);
  * Este método permite estableces el tipo de alineamiento para poder modificar
  * los pulsos de reloj
  *
- * @param align Define el alineamiento de la señal de salida
- * @param select_channel Define el canal a configurar
+ * @param left_align Define el alineamiento de la señal de salida
+ * En caso de "true" es alineamiento a la izquierda, en caso de "false" es
+ * alineamiento centrado
+ * 
  */
 void pwm_set_alignment(bool left_align);
 
@@ -64,13 +67,14 @@ void pwm_set_alignment(bool left_align);
  * @brief Configurar el número de etapas del periodo para un determinado canal,
  * permite establecer el número de etapas por periodo
  *
- * @param steps Establece el número de etapas del periodo
  * @param channel Determina el canal a configurar
+ * @param steps Establece el número de etapas del periodo
+ * 
  */
 void pwm_set_channel_period(int8_t channel, int8_t steps);
 
 /**
- * @brief Seleccionar el periodo para un determinado canal
+ * @brief Devuelve el periodo para un determinado canal
  *
  * @param channel Determina el canal a configurar
  */

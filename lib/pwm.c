@@ -23,6 +23,13 @@
 #define M6812_DESPL7_0 ~(7 << 0)
 
 void pwm_set_clock(bool clock_A, int8_t factor_N) {
+  // Asegurarse que factor_N es número entre 0 y 7
+  if (factor_N < 0) {
+    factor_N = 0;
+  } else if (factor_N > 7) {
+    factor_N = 7;
+  }
+
   if (clock_A == true) {  // reloj A -> canal 0 y 1
     serial_print("Reloj A");
     _io_ports[M6812_PWCLK] &= M6812_DESPL7_3;
@@ -80,20 +87,7 @@ void pwm_set_alignment(bool left_align) {
 }
 
 void pwm_set_channel_period(int8_t channel, int8_t steps) {
-  switch (channel) {
-    case 0:
-      _io_ports[M6812_PWPER0] = steps;
-      break;
-    case 1:
-      _io_ports[M6812_PWPER1] = steps;
-      break;
-    case 2:
-      _io_ports[M6812_PWPER2] = steps;
-      break;
-    case 3:
-      _io_ports[M6812_PWPER3] = steps;
-      break;
-  }
+  _io_ports[M6812_PWPER0 + channel] = steps;
 }
 
 uint8_t pwm_get_channel_period(int8_t channel) {
@@ -103,16 +97,16 @@ uint8_t pwm_get_channel_period(int8_t channel) {
 void pwm_channel_enable(int8_t channel) {
   switch (channel) {
     case 0:
-      _io_ports[M6812_PWPER0] |= M6812B_PWEN0;
+      _io_ports[M6812_PWEN] |= M6812B_PWEN0;
       break;
     case 1:
-      _io_ports[M6812_PWPER1] |= M6812B_PWEN1;
+      _io_ports[M6812_PWEN] |= M6812B_PWEN1;
       break;
     case 2:
-      _io_ports[M6812_PWPER2] |= M6812B_PWEN2;
+      _io_ports[M6812_PWEN] |= M6812B_PWEN2;
       break;
     case 3:
-      _io_ports[M6812_PWPER3] |= M6812B_PWEN3;
+      _io_ports[M6812_PWEN] |= M6812B_PWEN3;
       break;
   }
 }
@@ -145,11 +139,11 @@ void pwm_modify_duty_percentage(int8_t channel, int8_t percentage) {
 
 void pwm_print_status() {
   serial_print("\nM6812_PWCLK: ");
-  serial_printdecbyte(_io_ports[M6812_PWCLK]);
+  serial_printbinbyte(_io_ports[M6812_PWCLK]);
   serial_print("\n");
 
   serial_print("PWPOL: ");
-  serial_printdecbyte(_io_ports[M6812_PWPOL]);
+  serial_printbinbyte(_io_ports[M6812_PWPOL]);
   serial_print("\n");
 
   serial_print("PWPER0: ");
@@ -182,5 +176,9 @@ void pwm_print_status() {
 
   serial_print("PWDTY3: ");
   serial_printdecbyte(_io_ports[M6812_PWDTY3]);
+  serial_print("\n");
+
+  serial_print("PWEN: ");
+  serial_printbinbyte(_io_ports[M6812_PWEN]);
   serial_print("\n");
 }
