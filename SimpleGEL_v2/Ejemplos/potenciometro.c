@@ -14,12 +14,54 @@
 
   *************************************** */
 
+#include <ad.h>
 #include <sys/interrupts.h>
 #include <sys/locks.h>
 #include <sys/param.h>
 #include <sys/sio.h>
 #include <types.h>
-#include <ad.h>
+
+#define PUERTO7 'H'
+
+uint8_t valores[] = {0, 0, 0, 0};
+int contador = 0;
+
+void manejadora() {
+  uint8_t vActual = 1 << (7 - contador);
+  vActual |= valores[contador] & 0xF;
+
+  contador++;
+  // serial_print("\r\n");
+  // serial_printbinbyte(vActual);
+  gpio_writeport(PUERTO7, vActual);
+  if (contador == 4) {
+    contador = 0;
+  }
+}
+
+/**
+ * @brief Realiza las inicializaciones necesarias
+ *
+ */
+void sieteSeg_init() {
+  gpio_setportasinout(PUERTO7, 0xff);
+
+  uint8_t param = 0;
+  uint8_t id = timer_add_periodic_task(manejadora, &param, 1000);
+}
+
+/**
+ * @brief Recibirá un entero y hará que se muestre su valor en decimal en los
+ * 7-segmentos
+ *
+ * @param value
+ */
+void sieteSeg_valor(uint16_t value) {
+  valores[0] = value / 1000;
+  valores[1] = (value / 100) % 10;
+  valores[2] = (value / 10) % 10;
+  valores[3] = value % 10;
+}
 
 int main () {
   char c;
@@ -114,6 +156,9 @@ int main () {
       serial_printdecword(resultado);
       serial_print("   \r");
       resultadoAnterior = resultado;
+
+      sieteSeg_init();
+      sieteSeg_valor(resultado);
     }
   }
 }
