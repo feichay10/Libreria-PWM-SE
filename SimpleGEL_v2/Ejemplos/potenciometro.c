@@ -15,58 +15,98 @@
   *************************************** */
 
 #include <ad.h>
-#include <sieteseg.h>
 #include <sys/interrupts.h>
 #include <sys/locks.h>
 #include <sys/param.h>
 #include <sys/sio.h>
-#include <timer.h>
 #include <types.h>
 
-int main() {
+#define PUERTO7 'H'
+
+uint8_t valores[] = {0, 0, 0, 0};
+int contador = 0;
+
+void manejadora() {
+  uint8_t vActual = 1 << (7 - contador);
+  vActual |= valores[contador] & 0xF;
+
+  contador++;
+  // serial_print("\r\n");
+  // serial_printbinbyte(vActual);
+  gpio_writeport(PUERTO7, vActual);
+  if (contador == 4) {
+    contador = 0;
+  }
+}
+
+/**
+ * @brief Realiza las inicializaciones necesarias
+ *
+ */
+void sieteSeg_init() {
+  gpio_setportasinout(PUERTO7, 0xff);
+
+  uint8_t param = 0;
+  uint8_t id = timer_add_periodic_task(manejadora, &param, 1000);
+}
+
+/**
+ * @brief Recibirá un entero y hará que se muestre su valor en decimal en los
+ * 7-segmentos
+ *
+ * @param value
+ */
+void sieteSeg_valor(uint16_t value) {
+  valores[0] = value / 1000;
+  valores[1] = (value / 100) % 10;
+  valores[2] = (value / 10) % 10;
+  valores[3] = value % 10;
+}
+
+int main () {
   char c;
   /*Diferencial a usar en los direccionamientos para distinguir puerto 0 y 1 */
 
   uint16_t resultadoAnterior = 0;
 
   /* Deshabilitamos interrupciones */
-  lock();
+  lock ();
 
   /*Encendemos led*/
   _io_ports[M6812_DDRG] |= M6812B_PG7;
   _io_ports[M6812_PORTG] |= M6812B_PG7;
 
+
   serial_init();
-  sieteSeg_init();
-  timer_init(3); /* factor escalado a 3 = un milisegundo */
   serial_print("\r\n" __FILE__ " ==========\r\n");
 
-  unlock(); /* Habilitamos interrupciones */
-
-  while (1) {
+  while(1) {
     // Quitamos posible pulsación pendiente
     if (serial_receive_pending()) serial_recv();
     /* Elección del puerto */
     serial_print("\r\nPuerto conversor a utilizar (0 - 1)?:");
-    while ((c = serial_recv()) != '0' && c != '1');
+    while((c = serial_recv()) != '0' && c != '1');
     serial_send(c); /* a modo de confirmación*/
     ad_set_conversor(c - '0');
 
     /* Elección del pin dentro del puerto */
     serial_print("\r\nPin del puerto a utilizar (0 - 7)?:");
-    while ((c = serial_recv()) < '0' || c > '7');
+    while((c = serial_recv()) < '0' || c > '7');
     serial_send(c); /* a modo de confirmación*/
     ad_init();
     /*Pasamos a configurar AD correspondiente*/
-    // _io_ports[M6812_ATD0CTL2 + DirAD] = M6812B_ADPU; /*Encendemos, justf.
-    // izda*/ _io_ports[M6812_ATD0CTL3 + DirAD] = 0; /*Sin fifo*/
+    // _io_ports[M6812_ATD0CTL2 + DirAD] = M6812B_ADPU; /*Encendemos, justf. izda*/
+    // _io_ports[M6812_ATD0CTL3 + DirAD] = 0; /*Sin fifo*/
     ad_set_fifo(0);
     ad_justify_right(1);
+
+
 
     /* resolución de 10 bits y 16 ciclos de muestreo */
     // _io_ports[M6812_ATD0CTL4 + DirAD] = M6812B_SMP0 | M6812B_SMP1;
     ad_set_sampling_time(16);
     ad_set_conversion_size_10(1);
+
 
     /* Modo scan con 8 resultados sobre el pin seleccionado */
     // _io_ports[M6812_ATD0CTL5 + DirAD] = M6812B_S8C;
@@ -81,11 +121,12 @@ int main() {
     char simbolo[] = "/|\\-*";
     uint16_t itera = 0;
 #define ITERA_CAMBIO (5000)
-    while (!serial_receive_pending()) {
+    while(!serial_receive_pending()) {
+
       itera++;
       if (!(itera % ITERA_CAMBIO)) {
-        uint8_t simAct = itera / ITERA_CAMBIO;
-        if (!simbolo[simAct]) {
+        uint8_t simAct = itera/ITERA_CAMBIO;
+        if(!simbolo[simAct]) {
           itera = 0;
           simAct = 0;
         }
@@ -103,17 +144,21 @@ int main() {
       /*Vemos si los 8 resultados son iguales */
       uint16_t resultado = ad_retrieve(0);
       uint8_t iguales = 1;
-      for (uint8_t i = 0; iguales && i < 1; i++)
+      for(uint8_t i = 0; iguales && i < 1; i++)
         iguales = resultado == ad_retrieve(i);
-      if (!iguales) continue;
-      if (resultado == resultadoAnterior) continue;
+      if(! iguales)
+        continue;
+      if (resultado == resultadoAnterior)
+        continue;
 
       /* Los 8 resultados son iguales y distintos a lo que teníamos antes*/
       serial_print("  Nuevo valor = ");
       serial_printdecword(resultado);
-      sieteSeg_valor(resultado);
       serial_print("   \r");
-      resultadoAnterior = resultado;      
+      resultadoAnterior = resultado;
+
+      sieteSeg_init();
+      sieteSeg_valor(resultado);
     }
   }
 }

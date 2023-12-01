@@ -39,7 +39,7 @@ void sieteSeg_init() {
   gpio_setportasinout(PUERTO7, 0xff);
 
   uint8_t param = 0;
-  uint8_t id = timer_add_periodic_task(manejadora, &param, 1000);
+  timer_add_periodic_task(manejadora, &param, 1000);
 }
 
 void sieteSeg_digitos(uint8_t* value) {
